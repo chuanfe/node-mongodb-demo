@@ -7,7 +7,7 @@ var Movie = require('./models/movie')
 var port = process.env.PORT || 3000
 var app = express()
 
-mongoose.connect('mongodb://localhost:27017/wuch')
+mongoose.connect('mongodb://localhost:27017/wuch',{useMongoClient: true})
 
 app.set('views','./views/pages')
 app.set('view engine', 'jade')
@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')))
 app.locals.moment = require('moment')
 app.listen(port)
 
-console.log('node saart on port' + port)
+console.log('node start on port' + port)
 
 // index page
 app.get('/', function(req, res) {
