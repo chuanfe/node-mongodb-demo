@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/wuch',{useMongoClient: true})
 app.set('views','./views/pages')
 app.set('view engine', 'jade')
 app.use(bodyParser.urlencoded())
-app.use(express.static(path.join(__dirname, 'bower_components')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.locals.moment = require('moment')
 app.listen(port)
 
@@ -130,6 +130,22 @@ app.get('/movie/:id', function(req, res) {
             movie: movie
         })
     })
+})
+
+//list delete movie
+app.delete('/admin/list', function(req, res) {
+    var id = req.query.id
+
+    if(id) {
+        Movie.remove({_id: id}, function(err, movie) {
+            if(err) {
+                console.log(err)
+            }
+            else {
+                res.json({success: 1})
+            }
+        })
+    }
 })
 
 // update page
